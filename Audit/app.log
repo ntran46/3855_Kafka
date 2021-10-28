@@ -1,0 +1,74 @@
+2021-10-28 00:49:44,542 - basicLogger - INFO - Retrieving the item at index 10
+2021-10-28 01:00:25,379 - basicLogger - INFO - Retrieving the item at index 
+2021-10-28 01:05:54,291 - basicLogger - INFO - Retrieving the item at index 
+2021-10-28 01:06:17,037 - basicLogger - INFO - Retrieving the item at index 
+2021-10-28 01:09:42,482 - basicLogger - INFO - Retrieving the item at index 
+2021-10-28 01:10:08,524 - basicLogger - INFO - Retrieving the item at index 
+2021-10-28 01:10:15,161 - basicLogger - INFO - Retrieving the item at index 3
+2021-10-28 01:10:30,026 - basicLogger - INFO - Retrieving the item at index 9
+2021-10-28 01:14:57,574 - basicLogger - INFO - Retrieving the item at index 9
+2021-10-28 01:16:38,803 - basicLogger - INFO - Retrieving the item at index 9
+2021-10-28 01:22:47,652 - basicLogger - INFO - Retrieving the item at index 9
+2021-10-28 01:24:37,336 - basicLogger - INFO - Retrieving the item at index 9
+2021-10-28 01:26:29,012 - basicLogger - INFO - Retrieving the item at index 9
+2021-10-28 01:26:29,224 - basicLogger - ERROR - No more messages found
+2021-10-28 01:26:29,224 - basicLogger - ERROR - Could not find the event at index 9
+2021-10-28 01:26:50,650 - basicLogger - INFO - Retrieving the item at index 6
+2021-10-28 01:26:50,857 - basicLogger - ERROR - No more messages found
+2021-10-28 01:26:50,857 - basicLogger - ERROR - Could not find the event at index 6
+2021-10-28 01:26:56,176 - basicLogger - INFO - Retrieving the item at index 5
+2021-10-28 01:26:56,357 - basicLogger - ERROR - No more messages found
+2021-10-28 01:26:56,357 - basicLogger - ERROR - Could not find the event at index 5
+2021-10-28 01:27:01,719 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 01:27:01,904 - basicLogger - ERROR - No more messages found
+2021-10-28 01:27:01,904 - basicLogger - ERROR - Could not find the event at index 1
+2021-10-28 01:27:22,529 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 01:27:22,725 - basicLogger - ERROR - No more messages found
+2021-10-28 01:27:22,725 - basicLogger - ERROR - Could not find the event at index 1
+2021-10-28 01:27:57,201 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 01:29:32,732 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 08:08:28,258 - basicLogger - INFO - Retrieving the item at index 4
+2021-10-28 08:08:28,368 - basicLogger - ERROR - No more messages found
+2021-10-28 08:08:28,368 - basicLogger - ERROR - Could not find the event at index 4
+2021-10-28 08:09:00,316 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 08:09:00,420 - basicLogger - ERROR - No more messages found
+2021-10-28 08:09:00,420 - basicLogger - ERROR - Could not find the event at index 1
+2021-10-28 08:26:17,346 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 08:28:33,967 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 08:29:15,896 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 08:29:38,460 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 08:29:52,681 - basicLogger - INFO - Retrieving the item at index 10
+2021-10-28 08:30:19,529 - basicLogger - INFO - Retrieving the item at index 10
+2021-10-28 08:30:20,728 - basicLogger - ERROR - No more messages found
+2021-10-28 08:30:20,728 - basicLogger - ERROR - Could not find the event at index 10
+2021-10-28 09:18:02,308 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 09:19:58,545 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 09:23:25,595 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 09:24:34,115 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 09:25:31,934 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 09:27:43,333 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 09:29:26,719 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 09:30:25,193 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 09:33:12,867 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 09:33:48,535 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 09:34:14,720 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 09:35:30,357 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 09:36:18,308 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 09:37:18,925 - basicLogger - INFO - Retrieving the item at index 1
+2021-10-28 09:37:23,737 - basicLogger - INFO - Retrieving the item at index 2
+2021-10-28 09:37:29,437 - basicLogger - INFO - Retrieving the item at index 3
+2021-10-28 09:37:34,661 - basicLogger - INFO - Retrieving the item at index 4
+2021-10-28 09:37:35,749 - basicLogger - ERROR - No more messages found
+2021-10-28 09:37:35,749 - basicLogger - ERROR - Could not find the event at index 4
+2021-10-28 09:37:50,177 - basicLogger - INFO - Retrieving the item at index 5
+2021-10-28 09:37:51,263 - basicLogger - ERROR - No more messages found
+2021-10-28 09:37:51,263 - basicLogger - ERROR - Could not find the event at index 5
+2021-10-28 09:37:56,582 - basicLogger - INFO - Retrieving the item at index 6
+2021-10-28 09:37:57,722 - basicLogger - ERROR - No more messages found
+2021-10-28 09:37:57,722 - basicLogger - ERROR - Could not find the event at index 6
+2021-10-28 09:38:01,574 - basicLogger - INFO - Retrieving the item at index 7
+2021-10-28 09:52:56,073 - basicLogger - INFO - Retrieving the item at index 3
+2021-10-28 09:53:01,457 - basicLogger - INFO - Retrieving the item at index 4
+2021-10-28 09:53:02,555 - basicLogger - ERROR - No more messages found
+2021-10-28 09:53:02,584 - basicLogger - ERROR - Could not find the event at index 4
+2021-10-28 09:53:08,175 - basicLogger - INFO - Retrieving the item at index 7

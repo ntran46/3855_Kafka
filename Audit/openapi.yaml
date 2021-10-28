@@ -1,0 +1,148 @@
+openapi: 3.0.0
+info:
+  description: This API provides audit info
+  version: "1.0.0"
+  title: Audit API
+  contact:
+    email: utran2@my.bcit.ca
+
+paths:
+  /get_item:
+    get:
+      tags:
+        - users
+        - managers
+      summary: gets the item information
+      operationId: app.get_item
+      description: Gets the item information at the event store
+      parameters:
+        - name: index
+          in: query
+          description: Get the item at the index in the event store
+          schema:
+            type: string
+            format: date-time
+            example: 2020-10-20T09:09:12:33.001Z
+      responses:
+        '200':
+          description: Successfully returned the item
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InventoryItems'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+  /get_brand:
+    get:
+      tags:
+        - users
+        - managers
+      summary: gets the brand information
+      operationId: app.get_brand
+      description: Gets the brand information from the event store
+      parameters:
+        - name: index
+          in: query
+          description: Get the brand at the index in the event store
+          schema:
+            type: string
+            format: date-time
+            example: 2020-10-20T09:09:12:33.001Z
+      responses:
+        '200':
+          description: Successfully returned a brand
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Brand'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+components:
+  schemas:
+    InventoryItems:
+      type: object
+      required:
+        - item_name
+        - brand
+        - description
+        - quantities
+      properties:
+        item_id:
+          type: integer
+          example: 3544545346
+          maxLength: 30
+          minLength: 5
+        item_name:
+          type: string
+          example: Panasonic Rice Cooker
+        brand:
+          type: string
+          example: LG
+        description:
+          type: string
+          example: It boasts a 5-cup capacity and a compact, attractive design that will complement your kitchen counter or dinner table.
+        last_update:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'
+        quantities:
+          type: integer
+          minimum: 0
+          maximum: 1000
+          example: 21
+        price:
+          type: string
+          example: $65.4
+
+    Brand:
+      type: object
+      required:
+        - brand_name
+        - description
+        - location
+        - email_address
+      properties:
+        brand_id:
+          type: integer
+          example: 43345
+          maxLength: 20
+          minLength: 5
+        brand_name:
+          type: string
+          example: Panasonic
+        location:
+          type: string
+          example: 555 Seymour St, Vancouver, BC V6B 3H6
+        email_address:
+          type: string
+          example: abc@acb.com
+        phone_number:
+          type: string
+          example: 604-404-5555
+        description:
+          type: string
+          example: Panasonic
+        last_update:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'

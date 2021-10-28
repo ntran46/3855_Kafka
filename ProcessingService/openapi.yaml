@@ -1,0 +1,138 @@
+openapi: 3.0.0
+#servers:
+#  # Added by API Auto Mocking Plugin
+#  - description: SwaggerHub API Auto Mocking
+#    url: https://virtserver.swaggerhub.com/ntran46/Inventory/1.0.1
+info:
+  description: This is a API schem for Inventory Management
+  version: 1.0.1
+  title: Inventory Management
+  contact:
+    email: ntran46@my.bcit.ca
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: users
+    description: Operations available to normal users
+  - name: managers
+    description: Operations available to regular managers
+paths:
+  /stats:
+    get:
+      tags:
+        - users
+        - managers
+      summary: Gets the event stats
+      operationId: app.get_stats
+      description: Gets the items and brands processed statistics
+      responses:
+        '200':
+          description: Successfully returned the Inventory events
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/InventoryStats'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
+components:
+  schemas:
+    InventoryItems:
+      type: object
+      required:
+        - item_name
+        - brand
+        - description
+        - quantities
+      properties:
+        item_id:
+          type: integer
+          example: 3544545346
+          maxLength: 30
+          minLength: 5
+        item_name:
+          type: string
+          example: Panasonic Rice Cooker
+        brand:
+          type: string
+          example: LG
+        description:
+          type: string
+          example: It boasts a 5-cup capacity and a compact, attractive design that will complement your kitchen counter or dinner table.
+        last_update:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'
+        quantities:
+          type: integer
+          minimum: 0
+          maximum: 1000
+          example: 21
+        price:
+          type: string
+          example: $65.4
+
+    Brand:
+      type: object
+      required:
+        - brand_name
+        - description
+        - location
+        - email_address
+      properties:
+        brand_id:
+          type: integer
+          example: 43345
+          maxLength: 20
+          minLength: 5
+        brand_name:
+          type: string
+          example: Panasonic
+        location:
+          type: string
+          example: 555 Seymour St, Vancouver, BC V6B 3H6 
+        email_address:
+          type: string
+          example: abc@acb.com
+        phone_number:
+          type: string
+          example: 604-404-5555
+        description:
+          type: string
+          example: Panasonic
+        last_update:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'
+
+    InventoryStats:
+      required:
+        - num_items_added
+        - max_items_quantity
+        - num_brands_added
+        - min_itmes_quantity
+      properties:
+        num_items_added:
+          type: integer
+          example: 5000
+        num_brands_added:
+          type: integer
+          example: 200
+        max_items_quantity:
+          type: integer
+          example: 1000
+        min_itmes_quantity:
+          type: integer
+          example: 1
+      type: object
+

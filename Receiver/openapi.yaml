@@ -1,0 +1,132 @@
+openapi: 3.0.0
+#servers:
+#  # Added by API Auto Mocking Plugin
+#  - description: SwaggerHub API Auto Mocking
+#    url: https://virtserver.swaggerhub.com/ntran46/Inventory/1.0.1
+info:
+  description: This is a API schem for Inventory Management
+  version: 1.0.1
+  title: Inventory Management
+  contact:
+    email: ntran46@my.bcit.ca
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: users
+    description: Operations available to normal users
+  - name: managers
+    description: Operations available to regular managers
+paths:
+  /newitem:
+    post:
+      tags:
+        - managers
+      summary: adds an inventory item
+      operationId: api.add_new_item
+      description: Adds an item to the Inventory system
+      responses:
+        '201':
+          description: 'item created'
+        '400':
+          description: 'invalid input, object invalid'
+        '409':
+          description: 'an existing item already exists'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InventoryItems'
+        description: Inventory item to add
+
+  /newbrand:
+    post:
+      tags:
+        - managers
+        - users
+      summary: adds a new brand name
+      operationId: api.add_new_brand
+      description: Add a brand to the Inventory system
+      responses:
+        '201':
+          description: 'new brand updated successfully'
+        '400':
+          description: 'invalid input, object invalid'
+        '409':
+          description: 'an existing brand already exists'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Brand'
+        description: A new brand to be added
+
+components:
+  schemas:
+    InventoryItems:
+      type: object
+      required:
+        - item_name
+        - brand
+        - description
+        - quantities
+      properties:
+        item_id:
+          type: integer
+          example: 3544545346
+          maxLength: 30
+          minLength: 5
+        item_name:
+          type: string
+          example: Panasonic Rice Cooker
+        brand:
+          type: string
+          example: LG
+        description:
+          type: string
+          example: It boasts a 5-cup capacity and a compact, attractive design that will complement your kitchen counter or dinner table.
+        last_update:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'
+        quantities:
+          type: integer
+          minimum: 0
+          maximum: 1000
+          example: 21
+        price:
+          type: string
+          example: $65.4
+
+    Brand:
+      type: object
+      required:
+        - brand_name
+        - description
+        - location
+        - email_address
+      properties:
+        brand_id:
+          type: integer
+          example: 43345
+          maxLength: 20
+          minLength: 5
+        brand_name:
+          type: string
+          example: Panasonic
+        location:
+          type: string
+          example: 555 Seymour St, Vancouver, BC V6B 3H6 
+        email_address:
+          type: string
+          example: abc@acb.com
+        phone_number:
+          type: string
+          example: 604-404-5555
+        description:
+          type: string
+          example: Panasonic
+        last_update:
+          type: string
+          format: date-time
+          example: '2016-08-29T09:12:33.001Z'
