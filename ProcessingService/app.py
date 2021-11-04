@@ -2,19 +2,19 @@ import datetime
 import json
 import os.path
 import connexion
-import logging
+# import logging
 import logging.config
 
 import requests
 import yaml
 from apscheduler.schedulers.background import BackgroundScheduler
-from connexion import NoContent
-
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from Storage.base import Base
-from Storage.brand import Brand
-from Storage.item import Item
+# from connexion import NoContent
+#
+# from sqlalchemy import create_engine
+# from sqlalchemy.orm import sessionmaker
+# from Storage.base import Base
+# from Storage.brand import Brand
+# from Storage.item import Item
 
 
 with open('app_conf.yml', 'r') as f:
