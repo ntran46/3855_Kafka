@@ -8,7 +8,7 @@ export default function AppStats() {
 
 	const getStats = () => {
 	
-        fetch(`http://<Cloud DNS>:8100/stats`)
+        fetch(`http://acit3855-utran2.eastus2.cloudapp.azure.com:8100/get_stats`)
             .then(res => res.json())
             .then((result)=>{
 				console.log("Received Stats")
@@ -39,17 +39,14 @@ export default function AppStats() {
 							<th>Heart Rate</th>
 						</tr>
 						<tr>
-							<td># BP: {stats['num_bp_readings']}</td>
-							<td># HR: {stats['num_hr_readings']}</td>
+							<td># Items: {stats['num_items_added']}</td>
+							<td># Brand: {stats['num_brands_added']}</td>
 						</tr>
 						<tr>
-							<td colspan="2">Max BP Systolic: {stats['max_bp_sys_reading']}</td>
+							<td colspan="2">Max of Items added: {stats['max_items_quantity']}</td>
 						</tr>
 						<tr>
-							<td colspan="2">Max BR Diastolic: {stats['max_bp_dia_reading']}</td>
-						</tr>
-						<tr>
-							<td colspan="2">Max HR: {stats['max_bp_sys_reading']}</td>
+							<td colspan="2">Min of Items added: {stats['min_items_quantity']}</td>
 						</tr>
 					</tbody>
                 </table>
