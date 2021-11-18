@@ -8,9 +8,9 @@ from connexion import NoContent
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from Storage.base import Base
-from Storage.brand import Brand
-from Storage.item import Item
+from base import Base
+from brand import Brand
+from item import Item
 
 import json
 from pykafka import KafkaClient
@@ -27,7 +27,7 @@ with open('log_conf.yml', 'r') as f:
 
 logger = logging.getLogger('basicLogger')
 
-DB_ENGINE = create_engine(f"mysql://"
+DB_ENGINE = create_engine(f"mysql+pymysql://"
                           f"{app_config['datastore']['user']}:"
                           f"{app_config['datastore']['password']}@"
                           f"{app_config['datastore']['hostname']}:"
