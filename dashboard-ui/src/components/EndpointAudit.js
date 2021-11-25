@@ -4,15 +4,17 @@ import '../App.css';
 export default function EndpointAudit(props) {
     const [isLoaded, setIsLoaded] = useState(false);
     const [log, setLog] = useState(null);
-    const [error, setError] = useState(null)
-	const rand_val = Math.floor(Math.random() * 100); // Get a random event from the event store
+    const [error, setError] = useState(null);
+    const [index, setIndex] = useState(null);
+    const rand_val = Math.floor(Math.random() * 100); // Get a random event from the event store
 
     const getAudit = () => {
-        fetch(`http://acit3855-utran2.eastus2.cloudapp.azure.com:8110/${props.endpoint}?index=${rand_val}`)
+        fetch(`http://acit3855-utran2.eastus2.cloudapp.azure.com:8070/${props.endpoint}?index=${rand_val}`)
             .then(res => res.json())
             .then((result)=>{
-				console.log("Received Audit Results for " + props.endpoint)
-                setLog(result);
+		console.log("Received Audit Results for " + props.endpoint)
+                setIndex(rand_val);
+		setLog(result);
                 setIsLoaded(true);
             },(error) =>{
                 setError(error)

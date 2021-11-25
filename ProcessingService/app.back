@@ -10,6 +10,12 @@ import yaml
 from apscheduler.schedulers.background import BackgroundScheduler
 from flask_cors import CORS, cross_origin
 # from connexion import NoContent
+#
+# from sqlalchemy import create_engine
+# from sqlalchemy.orm import sessionmaker
+# from Storage.base import Base
+# from Storage.brand import Brand
+# from Storage.item import Item
 
 
 with open('app_conf.yml', 'r') as f:
@@ -62,7 +68,6 @@ def populate_stats():
                           f"start_timestamp={stats['last_updated']}&end_timestamp={current_datetime}")
     r_brand = requests.get(f"{app_config['eventstore']['url']}/get_brand?"
                            f"start_timestamp={stats['last_updated']}&end_timestamp={current_datetime}")
-
     temp.append(r_brand.json())
     temp.append(r_item.json())
 
@@ -100,4 +105,3 @@ app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
 if __name__ == "__main__":
     init_scheduler()
     app.run(port=8100, use_reloader=False)
-

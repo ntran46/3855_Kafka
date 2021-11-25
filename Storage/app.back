@@ -1,5 +1,5 @@
 import datetime
-import os
+
 import connexion
 import logging
 import logging.config
@@ -19,28 +19,14 @@ from threading import Thread
 from sqlalchemy import and_
 import time
 
-
-if "TARGET_ENV" in os.environ and os.environ["TARGET_ENV"] == "test":
-    print("In Test Environment")
-    app_conf_file = "/config/app_conf.yml"
-    log_conf_file = "/config/log_conf.yml"
-else:
-    print("In Dev Environment")
-    app_conf_file = "/config/app_conf.yml"
-    log_conf_file = "/config/log_conf.yml"
-
 with open('app_conf.yml', 'r') as f:
     app_config = yaml.safe_load(f.read())
 
-# External Logging Configuration
 with open('log_conf.yml', 'r') as f:
     log_config = yaml.safe_load(f.read())
     logging.config.dictConfig(log_config)
 
 logger = logging.getLogger('basicLogger')
-
-logging.info(f"App Conf File: {app_conf_file}")
-logging.info(f"Log Conf File: {log_conf_file}")
 
 DB_ENGINE = create_engine(f"mysql+pymysql://"
                           f"{app_config['datastore']['user']}:"
@@ -55,7 +41,6 @@ DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
 def get_item(start_timestamp, end_timestamp):
     """ Gets the item after a timestamp"""
-    print(start_timestamp)
     start_timestamp = start_timestamp.replace("%20", " ")
     end_timestamp = end_timestamp.replace("%20", " ")
     session = DB_SESSION()
@@ -65,13 +50,13 @@ def get_item(start_timestamp, end_timestamp):
 
     items = session.query(Item).filter(and_(Item.created_date >= start_timestamp_datetime,
                                             Item.created_date <= end_timestamp_datetime))
-    results_list = []
-    print(items)
+    results_list =[]
+
     for item in items:
         results_list.append(item.to_dict())
 
     session.close()
-    logger.info("Query for items after %s returns %d results" % (start_timestamp, len(results_list)))
+    logger.info("Query for items after %s returns %d results" % (timestamp, len(results_list)))
     print(results_list)
     return results_list, 200
 
@@ -85,22 +70,22 @@ def get_brand(start_timestamp, end_timestamp):
     start_timestamp_datetime = datetime.datetime.strptime(start_timestamp, "%Y-%m-%d %H:%M:%S.%f")
     end_timestamp_datetime = datetime.datetime.strptime(end_timestamp, "%Y-%m-%d %H:%M:%S.%f")
 
-    brands = session.query(Brand).filter(and_(Brand.created_date >= start_timestamp_datetime,
-                                              Brand.created_date <= end_timestamp_datetime))
+    brands = session.query(Item).filter(and_(Item.created_date >= start_timestamp_datetime,
+                                             Item.created_date <= end_timestamp_datetime))
     results_list = []
-    print(brands)
 
     for brand in brands:
         results_list.append(brand.to_dict())
 
     session.close()
-    logger.info("Query for brands after %s returns %d results" % (start_timestamp, len(results_list)))
+    logger.info("Query for brands after %s returns %d results" % (timestamp, len(results_list)))
     print(results_list)
     return results_list, 200
 
 
 def process_messages():
     """ Process event messages """
+    session = DB_SESSION()
     max_retry_count = app_config['events']['max_retry']
     sleep_time = app_config['events']['sleep']
     current_retry_count = 0
@@ -117,39 +102,35 @@ def process_messages():
             consumer.stop()
             consumer.start()
             logger.info("Connected! Processing messages")
-            break
-        except Exception as e:
+            for msg in consumer:
+                msg_str = msg.value.decode('utf-8')
+                msg = json.loads(msg_str)
+                logger.info(f"Message: {msg}")
+
+                payload = msg['payload']
+
+                if msg['type'] == "add_new_brand":
+                    new_brand = Brand(payload['brand_id'], payload['brand_name'],
+                                      payload['description'], payload['email_address'],
+                                      payload['phone_number'], payload['location'],
+                                      payload['last_update'])
+                    session.add(new_brand)
+                    logger.debug(f"Received event add_new_brand request with a unique id of {payload['brand_id']}")
+                elif msg['type'] == "add_new_item":
+                    new_item = Item(payload['item_id'], payload['brand'],
+                                    payload['item_name'], payload['description'],
+                                    payload['price'], payload['quantities'],
+                                    payload['last_update'])
+                    session.add(new_item)
+                    logger.debug(f"Received event add_new_item request with a unique id of {payload['item_id']}")
+
+            session.commit()
+            session.close()
+            consumer.commit_offsets()
+        except:
             logger.error("Cannot connect to Kafka service")
-            logger.error(e)
             time.sleep(sleep_time)
             current_retry_count += 1
-            
-    session = DB_SESSION()
-    for msg in consumer:
-        msg_str = msg.value.decode('utf-8')
-        msg = json.loads(msg_str)
-        logger.info(f"Message: {msg}")
-
-        payload = msg['payload']
-
-        if msg['type'] == "add_new_brand":
-            new_brand = Brand(payload['brand_id'], payload['brand_name'],
-                              payload['description'], payload['email_address'],
-                              payload['phone_number'], payload['location'],
-                              payload['last_update'])
-            session.add(new_brand)
-            logger.debug(f"Received event add_new_brand request with a unique id of {payload['brand_id']}")
-        elif msg['type'] == "add_new_item":
-            new_item = Item(payload['item_id'], payload['brand'],
-                            payload['item_name'], payload['description'],
-                            payload['price'], payload['quantities'],
-                            payload['last_update'])
-            session.add(new_item)
-            logger.debug(f"Received event add_new_item request with a unique id of {payload['item_id']}")
-
-        session.commit()
-        session.close()
-        consumer.commit_offsets()
 
 
 app = connexion.FlaskApp(__name__, specification_dir='')
@@ -160,4 +141,3 @@ if __name__ == "__main__":
     tl.setDaemon(True)
     tl.start()
     app.run(port=8090)
-

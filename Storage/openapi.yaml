@@ -27,7 +27,14 @@ paths:
       operationId: app.get_item
       description: Gets the item information after a timestamp
       parameters:
-        - name: timestamp
+        - name: start_timestamp
+          in: query
+          description: Limits the number of items per page
+          schema:
+            type: string
+            format: date-time
+            example: 2020-10-20T09:09:12:33.001Z
+        - name: end_timestamp
           in: query
           description: Limits the number of items per page
           schema:
@@ -62,7 +69,14 @@ paths:
       operationId: app.get_brand
       description: Gets the brand information after a timestamp
       parameters:
-        - name: timestamp
+        - name: start_timestamp
+          in: query
+          description: Limits the number of items per page
+          schema:
+            type: string
+            format: date-time
+            example: 2020-10-20T09:09:12:33.001Z
+        - name: end_timestamp
           in: query
           description: Limits the number of items per page
           schema:

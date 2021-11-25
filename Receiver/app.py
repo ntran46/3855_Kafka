@@ -8,7 +8,7 @@ from connexion import NoContent
 import json
 import os.path
 import requests
-
+import time
 import datetime
 from pykafka import KafkaClient
 
@@ -23,6 +23,22 @@ with open('log_conf.yml', 'r') as f:
     logging.config.dictConfig(log_config)
 
 logger = logging.getLogger('basicLogger')
+
+retry = 0
+max_retry = 10
+
+hostname = f"{app_config['events']['hostname']}:{app_config['events']['port']}"
+while retry < max_retry:
+    logger.info(f"Connecting to Kafka {retry} of {max_retry}")
+    try:
+        client = KafkaClient(hosts=hostname)
+        topic = client.topics[str.encode(app_config["events"]["topic"])]
+#        producer = topic.get_sync_producer()
+        break
+    except:
+        logger.error("Failed to connect to Kafka")
+        retry += 1
+        time.sleep(3)
 
 
 def logging(body):
@@ -44,8 +60,6 @@ def logging(body):
 def add_new_item(body):
     """Send a request to add a new item into the Inventory List """
 
-    client = KafkaClient(hosts=f"{app_config['events']['hostname']}:{app_config['events']['port']}")
-    topic = client.topics[str.encode(app_config['events']['topic'])]
     producer = topic.get_sync_producer()
 
     msg = {"type": "add_new_item",
@@ -64,8 +78,6 @@ def add_new_item(body):
 def add_new_brand(body):
     """Send a request to add a new brand into the Inventory List"""
 
-    client = KafkaClient(hosts=f"{app_config['events']['hostname']}:{app_config['events']['port']}")
-    topic = client.topics[str.encode(app_config['events']['topic'])]
     producer = topic.get_sync_producer()
 
     msg = {"type": "add_new_brand",
