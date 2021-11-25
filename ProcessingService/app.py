@@ -11,18 +11,39 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from flask_cors import CORS, cross_origin
 # from connexion import NoContent
 
+if "TARGET_ENV" in os.environ and os.environ["TARGET_ENV"] == "test":
+    print("In Test Environment")
+    app_conf_file = "/config/app_conf.yml"
+    log_conf_file = "/config/log_conf.yml"
+else:
+    print("In Dev Environment")
+    app_conf_file = "app_conf.yml"
+    log_conf_file = "log_conf.yml"
 
-with open('app_conf.yml', 'r') as f:
+with open(app_conf_file, 'r') as f:
     app_config = yaml.safe_load(f.read())
 
-with open('log_conf.yml', 'r') as f:
+# External Logging Configuration
+with open(log_conf_file, 'r') as f:
     log_config = yaml.safe_load(f.read())
     logging.config.dictConfig(log_config)
 
 logger = logging.getLogger('basicLogger')
 
+logger.info("App Conf File: %s" % app_conf_file)
+logger.info("Log Conf File: %s" % log_conf_file)
 
-STATS = 'stats.json'
+
+# with open('app_conf.yml', 'r') as f:
+#     app_config = yaml.safe_load(f.read())
+#
+# with open('log_conf.yml', 'r') as f:
+#     log_config = yaml.safe_load(f.read())
+#     logging.config.dictConfig(log_config)
+#
+# logger = logging.getLogger('basicLogger')
+
+STATS = app_config["datastore"]["filename"]
 
 
 def get_stats():
@@ -46,6 +67,7 @@ def populate_stats():
     current_datetime = str(datetime.datetime.now())
 
     temp = []
+
     stats = {'num_items_added': 0,
              'num_brands_added': 0,
              'max_items_quantity': 0,
@@ -73,7 +95,7 @@ def populate_stats():
     if len(temp[0]) != 0:
         stats['num_brands_added'] = len(temp[0])
 
-    stats['last_updated'] = current_datetime
+    stats['last_updated'] = str(datetime.datetime.now())
 
     with open(STATS, "w") as f:
         f.write(json.dumps(stats))
@@ -96,6 +118,10 @@ app = connexion.FlaskApp(__name__, specification_dir='')
 CORS(app.app)
 app.app.config['CORS_HEADERS'] = 'Content-Type'
 app.add_api("openapi.yaml", strict_validation=True, validate_responses=True)
+
+# if "TARGET_ENV" not in os.environ or os.environ["TARGET_ENV"] != "test":
+#     CORS(app.app)
+#     app.app.config['CORS_HEADERS']='Content-Type'
 
 if __name__ == "__main__":
     init_scheduler()

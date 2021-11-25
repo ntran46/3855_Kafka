@@ -9,5 +9,5 @@ events:
   hostname: acit3855-utran2.eastus2.cloudapp.azure.com
   port: 9092
   topic: events
-  max_retry: 5
+  max_retry: 20
   sleep: 5
