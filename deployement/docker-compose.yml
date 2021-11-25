@@ -48,6 +48,7 @@ services:
       # Where our data will be persisted 
     volumes: 
       - my-db:/var/lib/mysql
+        #    command: ["/bin/sh", "-c", "while true; do echo; done;"]
     healthcheck:
       test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD 
       timeout: 20s
