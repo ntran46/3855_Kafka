@@ -47,14 +47,14 @@ logger.info("Log Conf File: %s" % log_conf_file)
 
 retry = 0
 max_retry = 20
+hostname = f"{app_config['events']['hostname']}:{app_config['events']['port']}"
 
 while retry < max_retry:
     logger.info(f"Connecting to Kafka {retry} of {max_retry}")
     try:
-        hostname = f"{app_config['events']['hostname']}:{app_config['events']['port']}"
         client = KafkaClient(hosts=hostname)
         topic = client.topics[str.encode(app_config["events"]["topic"])]
-        #        producer = topic.get_sync_producer()
+        logger.info("Connected to Kafka")
         break
     except Exception as error:
         logger.error("Failed to connect to Kafka. Error: ", error)

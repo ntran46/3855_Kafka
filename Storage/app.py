@@ -118,8 +118,6 @@ def process_messages():
             logger.info("Connected! Processing messages")
             break
         except Exception as error:
-            # consumer.stop()
-            # consumer.start()
             logger.error("Cannot connect to Kafka service")
             logger.error(error)
             time.sleep(sleep_time)
