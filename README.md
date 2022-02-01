@@ -1,3 +1,12 @@
+# SaaS Integration
+Refer to the folder "__SaaS_Integration" folder for the guideline for setting up a sample SaaS Integration system in Azure.
+The system includes: 
+- GitLab with CI/CD: host the whole repo (Microservices with Kafka)
+- Jenkin CI/CD: test the serivices and deploy them as containers
+- Confluence and Jira
+- Tomcat 
+- SonarQube for static analysis
+
 # 3855_Kafka
 Deploy a sample Microservices with Kafka services
 
