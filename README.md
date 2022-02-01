@@ -23,7 +23,7 @@ Running steps:
 2) "cd" to each service folder (except nginx and deployment), run the command:
   $ docker build -t <service_name>:latest .   
   For example,
-  # docker build -t processing:latest . (make sure you have the "dot" at the end)
+  ```# docker build -t processing:latest . ``` (make sure you have the "dot" at the end)
 
 3) a) Copy the nginx.conf to the folder <HOME>/nginx on the server
    b) Copy log_conf.yaml and app_conf.yaml of each service to the associated folder on server <HOME>/config/<service_name>	
@@ -38,6 +38,6 @@ Running steps:
 5) Navigate to your site and verify the dashboard is up. The stats has not been started.
 
 6) Testing services using Apache JMeter (on any workstation that has Java 8).
-   # Download JMeter at https://jmeter.apache.org/download_jmeter.cgi
+  ##### Download JMeter at https://jmeter.apache.org/download_jmeter.cgi
   Import the Storage.jmx and run
   => The page shows the stats changing every 2 seconds
