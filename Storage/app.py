@@ -104,7 +104,6 @@ def process_messages():
     sleep_time = app_config['events']['sleep']
     current_retry_count = 0
     hostname = f"{app_config['events']['hostname']}:{app_config['events']['port']}"
-#    client = KafkaClient(hosts=hostname)
 
     while current_retry_count < max_retry_count:
         logger.info(f"Connecting to Kafka {current_retry_count} of {max_retry_count}")
@@ -114,8 +113,6 @@ def process_messages():
             consumer = topic.get_simple_consumer(consumer_group=b'event_group',
                                                  reset_offset_on_start=False,
                                                  auto_offset_reset=OffsetType.LATEST)
-            # consumer.stop()
-            # consumer.start()
             logger.info("Connected! Processing messages")
             break
         except Exception as error:

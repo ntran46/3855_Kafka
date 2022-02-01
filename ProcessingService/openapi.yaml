@@ -1,14 +1,11 @@
 openapi: 3.0.0
-#servers:
-#  # Added by API Auto Mocking Plugin
-#  - description: SwaggerHub API Auto Mocking
-#    url: https://virtserver.swaggerhub.com/ntran46/Inventory/1.0.1
+
 info:
   description: This is a API schem for Inventory Management
   version: 1.0.1
   title: Inventory Management
   contact:
-    email: ntran46@my.bcit.ca
+    email: utran2@dxc.com
   license:
     name: Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'

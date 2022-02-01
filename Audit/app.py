@@ -28,21 +28,10 @@ with open(log_conf_file, 'r') as f:
     log_config = yaml.safe_load(f.read())
     logging.config.dictConfig(log_config)
 
-# with open("app_conf.yml", 'r') as f:
-#     app_config = yaml.safe_load(f.read())
-#
-# with open('log_conf.yml', 'r') as f:
-#     log_config = yaml.safe_load(f.read())
-#     logging.config.dictConfig(log_config)
-
 logger = logging.getLogger('basicLogger')
 
 logger.info("App Conf File: %s" % app_conf_file)
 logger.info("Log Conf File: %s" % log_conf_file)
-
-# logger.info("connecting to DB. Hostname: %s, Port: %d" % (app_config["datastore"]["hostname"],
-#                                                           app_config["datastore"]["port"]))
-
 
 def get_brand(index):
     """ Get item from an index in History"""
@@ -50,12 +39,6 @@ def get_brand(index):
     hostname = f"{app_config['events']['hostname']}:{app_config['events']['port']}"
     client = KafkaClient(hosts=hostname)
     topic = client.topics[str.encode(app_config['events']['topic'])]
-
-    # Here we reset the offset on start so that we retrieve
-    # messages at the beginning of the message queue.
-    # To prevent the for loop from blocking, we set the timeout to
-    # 100ms. There is a risk that this loop never stops if the
-    # index is large and messages are constantly being received!
 
     consumer = topic.get_simple_consumer(reset_offset_on_start=True, consumer_timeout_ms=1000)
 
@@ -84,12 +67,6 @@ def get_item(index):
     hostname = f"{app_config['events']['hostname']}:{app_config['events']['port']}"
     client = KafkaClient(hosts=hostname)
     topic = client.topics[str.encode(app_config['events']['topic'])]
-
-    # Here we reset the offset on start so that we retrieve
-    # messages at the beginning of the message queue.
-    # To prevent the for loop from blocking, we set the timeout to
-    # 100ms. There is a risk that this loop never stops if the
-    # index is large and messages are constantly being received!
 
     consumer = topic.get_simple_consumer(reset_offset_on_start=True,
                                          consumer_timeout_ms=1000)

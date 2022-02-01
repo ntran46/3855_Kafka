@@ -4,6 +4,6 @@ add_new_item:
 add_new_brand:
   url: http://localhost:8090/newbrand
 events:
-  hostname: acit3855-utran2.eastus2.cloudapp.azure.com
+  hostname: jenkins-utran2.eastus2.cloudapp.azure.com
   port: 9092
   topic: events

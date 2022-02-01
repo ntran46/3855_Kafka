@@ -1,6 +1,6 @@
 import mysql.connector
 
-db_conn = mysql.connector.connect(host="acit3855-utran2.eastus2.cloudapp.azure.com",
+db_conn = mysql.connector.connect(host="jenkins-utran2.eastus.cloudapp.azure.com",
                                   user="user", password="Password", database="Inventory", port="3306")
 
 db_c = db_conn.cursor()

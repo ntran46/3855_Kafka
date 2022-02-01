@@ -2,11 +2,11 @@ version: 1
 datastore:
   user: 'user'
   password: 'Password'
-  hostname: 'acit3855-utran2.eastus2.cloudapp.azure.com'
+  hostname: 'jenkins-utran2.eastus2.cloudapp.azure.com'
   port: 3306
   db: 'Inventory'
 events:
-  hostname: acit3855-utran2.eastus2.cloudapp.azure.com
+  hostname: jenkins-utran2.eastus2.cloudapp.azure.com
   port: 9092
   topic: events
   max_retry: 20

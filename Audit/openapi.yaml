@@ -4,7 +4,7 @@ info:
   version: "1.0.0"
   title: Audit API
   contact:
-    email: utran2@my.bcit.ca
+    email: utran2@dxc.com
 
 paths:
   /get_item:
