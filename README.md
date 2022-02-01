@@ -1,5 +1,5 @@
 # 3855_Kafka
-Deploy a sample Microservices Kafka services
+Deploy a sample Microservices with Kafka services
 
 ---------------------------------------------------
 Recommending Environment
